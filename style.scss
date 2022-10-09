@@ -1,0 +1,71 @@
+*, *:is(::after, ::before) {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font: 1rem "Helvetica", sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(5%,10%,17%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .background-animation-container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    .bubbles {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        --bubble-size: 30px;
+        min-width: var(--bubble-size);
+        height: var(--bubble-size);
+        border-radius: 50%;
+        animation: rising-bubbles calc(125s / var(--i)) linear infinite;
+
+        // TODO: use a formula instead of this mess
+        @media (max-width: 1200px) { --bubble-size: 25px; }
+        @media (max-width: 1000px) { --bubble-size: 20px; }
+        @media (max-width: 800px) { --bubble-size: 15px; }
+        @media (max-width: 500px) { --bubble-size: 10px; }
+        @media (max-width: 300px) { --bubble-size: 5px; }
+
+        &:nth-child(even) {
+          background-color: rgb(31%,76%,86%);
+          box-shadow:
+            0 0 0 10px rgb(31%,76%,86%, 25%),
+            0 0 50px rgb(31%,76%,86%),
+            0 0 100px rgb(31%,76%,86%);
+        }
+
+        &:nth-child(odd) {
+          background-color: rgb(100%,18%,46%);
+          box-shadow:
+            0 0 0 10px rgb(100%,18%,46%, 25%),
+            0 0 50px rgb(100%,18%,46%),
+            0 0 100px rgb(100%,18%,46%);
+        }
+      }
+
+      @keyframes rising-bubbles {
+        from {
+          translate: 0 100vh;
+          scale: 0;
+        }
+        to {
+          translate: 0 -10vh;
+          scale: 1;
+        }
+      }
+    }
+  }
+}
